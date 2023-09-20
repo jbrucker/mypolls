@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Login {% endblock %}
+
+{% block content %}
+{% if form.non_field_errors %}
+<div class="error-messages">
+    {% for error in form.non_field_errors %}
+    <div class="error">{{ error }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<form method="POST" class="custom-form">
+    {% csrf_token %}
+    <table>
+    <tr valign="top">
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+        <td class="error">{{ form.username.errors }} </td>
+    </tr>
+    <tr valign="top">
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+        <td class="error">{{ form.password.errors }} </td>
+    </tr>
+    <tr valign="top">
+        <td>
+        <button type="submit">Login</button>
+        </td>
+        <td>
+        or <a href="{% url 'polls:index' %}">view polls as visitor</a>
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </table>
+    <p> No account? <a href="{% url 'signup' %}">Sign-up</a>
+    </p>
+    <input type="hidden" name="next" value="{{next}}" />
+</form>
+</div>
+
+{% endblock %}

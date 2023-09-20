@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">  
+<title>SKE Polls</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    th, td { padding: 4px 6px; }
+    th { background: lightgray; }
+    * { font-family: Arial, Helvetica, sans-serif; }
+    .header {
+      padding: 4px;  
+      background: lightgray;
+      color: blue;
+      font-size: 0.9rem;
+    }
+    .error {
+      color: red;
+    }
+    .greeting {
+      color: blue;
+    }
+    .help-text {
+      font-size: 0.9rem;
+      color: gray;
+      margin-left: 2em;
+      /* background-color: #0056b3; */
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+    }
+    .small {
+      font-size: 0.7rem;
+    }
+
+</style>
+</head>
+<body>
+    <div class="header">
+      {% if user.is_authenticated %}
+        {% if user.first_name %}
+          Hello, {{ user.first_name }}
+        {% else %}
+          Hello, {{ user.username.title }}
+        {% endif %}    
+      {% else %}
+        Welcome to SKE Polls
+      {% endif %}
+      <span style="float:right">
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+      </span>
+    </div>
+    </div>
+
+    <h2>
+    {% block title %} {% endblock %}
+    </h2>
+    {% if messages %}
+    <ul class="messages">
+        {% for msg in messages %}
+          <li class="{{msg.tags}}"><em>{{ msg }}</em></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

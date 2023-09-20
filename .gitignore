@@ -1,0 +1,35 @@
+# My own excludes
+configure.txt
+configure.md
+mysite/utils.py
+
+# The .env file may contain data values using in settings.py
+# For security, don't commit it to Git!
+.env
+local_settings.py
+__pycache__/
+*.py[cod]
+/build
+db.sqlite3
+docs/
+# output of 'manage.py collectstatic'
+staticfiles/
+# Virtualenv is recreated as needed.
+venv/
+env/
+
+# code coverage
+.coverage
+htmlcov/
+/coverage
+.mypy_cache
+
+# logs, etc
+*.log
+.DS_Store
+
+# IDE files
+.idea
+.project
+.pydevproject
+.vscode/

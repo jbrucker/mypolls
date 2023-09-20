@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        <tr valign="top">
+        <td>{{ form.username.label_tag }}</td> 
+        <td>{{ form.username }}</td>
+        <td class="error">{{ form.username.errors }}</td>
+        </tr>
+        <tr>
+        <td>{{ form.password1.label_tag }}</td> 
+        <td>{{ form.password1 }}</td>
+        <td class="error">{{ form.password1.errors }}</td>
+        </tr>
+        <tr>
+        <td>Re-enter password:</td> 
+        <td>{{ form.password2 }}</td>
+        <td class="error">{{ form.password2.errors }}</td>
+        </tr>
+    </table>
+
+    <button type="submit">Sign Up</button>
+    or
+    <a href="{% url 'polls:index' %}">View polls as a visitor</a>
+</form>
+
+<div class="help-text">
+    <p>Guidelines</p>
+    {% for field in form %}
+        {{ field.help_text }}
+    {% endfor %}
+</div>
+{% endblock %}

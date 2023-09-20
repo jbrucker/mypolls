@@ -1,36 +1,59 @@
-# Django Tutorial Polls App
+# KU Polls App
 
-This repository contains the complete code for the [Django](https://www.djangoproject.com/) project's [tutorial](https://docs.djangoproject.com/en/2.1/intro/tutorial01/) `polls` app. The code should mirror the code you've written at the end of [Part 7](https://docs.djangoproject.com/en/2.1/intro/tutorial07/). 
-
-The `SECRET_KEY` variable in `mysite/settings.py` has been scrubbed, and instructions for regenerating the key are available in the accompanying DigitalOcean [tutorial](https://www.digitalocean.com/community/tutorials).
-
-This app is meant to be used as a reference Django app for several DigitalOcean tutorials, and should not be deployed in production.
+This repository contains the complete code for the KU Polls application, including the Iteration 3 changes in the domain model.
 
 ----
 
-### Quickstart
+## Setup
 
-Polls is a simple Django app to conduct Web-based polls. For each question, visitors can choose between a fixed number of answers.
+*The application requires Python 3.8.*
 
+1. (Recommended) Create a virtual environment and install dependencies as in requirements.txt.
+   ```bash
+   # you should know how to do this
+   ```
+   Then activate the virtual env.
 
-1. Add `polls` to your `INSTALLED_APPS` setting like this:
+2. Run migrations (replace `python` with whatever your Python 3 command is):
+   ```bash
+   python manage.py migrate
+   ```
 
-```python
-INSTALLED_APPS = [
-        ...
-        'polls',
-    ]
+3. Import data  from the `data/` directory.  For lame Windows shells, replace data/ with `data\`.
+   ```bash
+   python manage.py loaddata data/*.json
+   ```
+   This creates 4 polls, 10 users, and 1 superuser named `admin` with password `superman`
+
+4. Set environment variables.  The default values in [mysite/settings.py](./mysite/settings.py) should work, but you may specify any of these values in `.env`:
+   ```
+   # Default value of DEBUG is False. True may help you with debugging.
+   DEBUG = True
+   ALLOWED_HOSTS = localhost,testserver,127.0.0.1,::1
+   # python manage.py shell -c \
+   # "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+   SECRET_KEY =  (a random string)
+   ```
+
+## Running the application
+
+```bash
+  python manage.py runserver
 ```
+and navigate to [http://localhost:8000/polls/](http://localhost:8000/polls/).
 
-2. Include the polls URLconf in your project `urls.py` like this:
 
-```python
-path('polls/', include('polls.urls')),
-```
+## Sample Users and Votes
 
-3. Run `python manage.py migrate` to create the polls models.
+The data you imported from `data/users.json` (in Setup) created these users:
 
-4. Start the development server and visit http://127.0.0.1:8000/admin/
-   to create a poll (you'll need the Admin app enabled).
+| Username              | Password      |
+|:----------------------|:--------------|
+| demo1 ... demo9       | hackme        |
+| hacker                | hackme        |
 
-5. Visit http://127.0.0.1:8000/polls/ to participate in the poll.
+to help you test your code:
+
+- `demo1` - `demo6` voted for all 4 poll questions.
+- `demo7` - `demo9` have not voted for any poll questions.
+- `hacker` has voted for some poll questions.

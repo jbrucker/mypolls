@@ -1,12 +1,42 @@
-<h1>{{ question.question_text }}</h1>
+<!-- Display a question and it's choices with radio buttons.
+   Allow the user to submit a vote if logged in and voting is allowed.
+   Context Names:
+   question = the Question obect
+   selected_choice = reference the user's previously vote choice, may be none
+  -->
+{% extends 'base.html' %}
+{% block title %}{{ question.question_text }}
+{% endblock %}
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
+{% block content %}
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
-{% for choice in question.choice_set.all %}
-    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+{% if question.end_date %}
+<p class="small">
+    Closing date: {{question.end_date}}
+</p>
+{% endif %}
+{% for choice in question.choice_set.all|dictsort:"choice_text" %}
+    <input type="radio" id="choice{{ forloop.counter }}"
+           name="choice"  
+           value="{{ choice.id }}" 
+           {% if choice.id == selected_choice %} checked=True {% endif %}
+     />
     <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
 {% endfor %}
-<input type="submit" value="Vote">
+<p>
+{% if question.can_vote %}
+    {% if user.is_authenticated %}
+        <input type="submit" value="Vote">
+    {% else %}
+        Please <a href="{% url 'login' %}?next={{request.path}}">Login</a> to submit a vote.
+    {% endif %}
+{% else %}
+Voting is <b>closed</b>.
+{% endif %}
+</p>
 </form>
+<p><a href="{% url 'polls:results' question.id %}">View Results</a> &emsp;
+    <a href="{% url 'polls:index' %}">Back to Index</a>
+</p>
+{% endblock %}

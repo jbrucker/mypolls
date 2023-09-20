@@ -1,0 +1,302 @@
+[
+{
+  "model": "polls.question",
+  "pk": 1,
+  "fields": {
+    "question_text": "What is your favorite programming language?",
+    "pub_date": "2023-09-13T09:18:26Z",
+    "end_date": null
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 2,
+  "fields": {
+    "question_text": "What is your favorite web framework?",
+    "pub_date": "2023-09-13T10:49:49Z",
+    "end_date": null
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 3,
+  "fields": {
+    "question_text": "What is the best university in Thailand?",
+    "pub_date": "2023-09-13T11:25:39Z",
+    "end_date": null
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 4,
+  "fields": {
+    "question_text": "Who will win the 2020 US Presidential Election?",
+    "pub_date": "2020-01-01T05:00:00Z",
+    "end_date": "2020-12-31T23:59:00Z"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 1,
+  "fields": {
+    "question": 1,
+    "choice_text": "Basic"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 2,
+  "fields": {
+    "question": 1,
+    "choice_text": "C/C++"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 3,
+  "fields": {
+    "question": 1,
+    "choice_text": "C#"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 4,
+  "fields": {
+    "question": 1,
+    "choice_text": "Java"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 5,
+  "fields": {
+    "question": 1,
+    "choice_text": "Javascript"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 6,
+  "fields": {
+    "question": 1,
+    "choice_text": "Kotlin"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 7,
+  "fields": {
+    "question": 1,
+    "choice_text": "Python"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 8,
+  "fields": {
+    "question": 1,
+    "choice_text": "Ruby"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 9,
+  "fields": {
+    "question": 3,
+    "choice_text": "AIT"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 10,
+  "fields": {
+    "question": 3,
+    "choice_text": "Chiang Mai"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 11,
+  "fields": {
+    "question": 3,
+    "choice_text": "Chulalongkorn"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 12,
+  "fields": {
+    "question": 3,
+    "choice_text": "Kasetsart"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 13,
+  "fields": {
+    "question": 3,
+    "choice_text": "Khon Kaen"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 14,
+  "fields": {
+    "question": 3,
+    "choice_text": "KMIT"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 15,
+  "fields": {
+    "question": 3,
+    "choice_text": "Mahidol"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 16,
+  "fields": {
+    "question": 3,
+    "choice_text": "Prince of Songhla"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 17,
+  "fields": {
+    "question": 3,
+    "choice_text": "Thammasat"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 21,
+  "fields": {
+    "question": 2,
+    "choice_text": "Code Igniter"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 22,
+  "fields": {
+    "question": 2,
+    "choice_text": "Django"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 23,
+  "fields": {
+    "question": 2,
+    "choice_text": "Grails"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 24,
+  "fields": {
+    "question": 2,
+    "choice_text": "Lavarel"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 25,
+  "fields": {
+    "question": 2,
+    "choice_text": "Pyramid"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 26,
+  "fields": {
+    "question": 2,
+    "choice_text": "Ruby on Rails"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 27,
+  "fields": {
+    "question": 2,
+    "choice_text": "Spring"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 28,
+  "fields": {
+    "question": 2,
+    "choice_text": "Struts"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 29,
+  "fields": {
+    "question": 2,
+    "choice_text": "Node.js + Express"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 30,
+  "fields": {
+    "question": 2,
+    "choice_text": "Flask"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 31,
+  "fields": {
+    "question": 2,
+    "choice_text": "Something else"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 35,
+  "fields": {
+    "question": 1,
+    "choice_text": "Typescript"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 40,
+  "fields": {
+    "question": 4,
+    "choice_text": "Joseph Biden"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 42,
+  "fields": {
+    "question": 4,
+    "choice_text": "Donald Trump"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 43,
+  "fields": {
+    "question": 4,
+    "choice_text": "Robert Kennedy, Jr."
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 44,
+  "fields": {
+    "question": 4,
+    "choice_text": "Someone Else"
+  }
+}
+]
