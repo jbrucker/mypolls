@@ -10,7 +10,7 @@ This repository contains the complete code for the KU Polls application, includi
 
 1. (Recommended) Create a virtual environment and install dependencies as in requirements.txt.
    ```bash
-   # you should know how to do this
+   # you know how to do this
    ```
    Then activate the virtual env.
 
@@ -30,8 +30,6 @@ This repository contains the complete code for the KU Polls application, includi
    # Default value of DEBUG is False. True may help you with debugging.
    DEBUG = True
    ALLOWED_HOSTS = localhost,testserver,127.0.0.1,::1
-   # python manage.py shell -c \
-   # "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
    SECRET_KEY =  (a random string)
    ```
 
@@ -45,7 +43,7 @@ and navigate to [http://localhost:8000/polls/](http://localhost:8000/polls/).
 
 ## Sample Users and Votes
 
-The data you imported from `data/users.json` (in Setup) created these users:
+The data you imported from `data/users.json` (in Setup) defines these users:
 
 | Username              | Password      |
 |:----------------------|:--------------|

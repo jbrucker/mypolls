@@ -53,20 +53,44 @@ def create_choices(question: Question, num_choices=2):
 class VotingTest(TestCase):
 
     def setUp(self):
+        """Create a test fixture before each test."""
         super().setUp()
-        self.username = "user1"
-        self.password = "FatChance"
+        # Create two users. The tests need to know the username and password,
+        # so the user can "login" to the test client session.
+        self.username1 = "user1"
+        self.password1 = "FatChance"
         self.user1 = User.objects.create_user(
-                    self.username, password=self.password)
+                    self.username1, password=self.password1)
+        # another user, so you can create votes not owned by user1
+        self.username2 = "user2"
+        self.password2 = "FatChance"
+        self.user2 = User.objects.create_user(
+                    self.username2, password=self.password2)
+
+    def login(self, user: User):
+        """Utility function to 'login' a user to the Client session.
+           This is needed in many tests.
+           :param user: must be self.user1 or self.user2 
+        """
+        # "login" the user to the client session
+        if user == self.user1:
+            self.assertTrue( self.client.login(
+                        username=self.username1, password=self.password1) )
+        elif user == self.user2:
+            self.assertTrue( self.client.login(
+                        username=self.username2, password=self.password2) )
+        else:
+            self.fail(f"Unrecognized user parameter {user.username}")
 
     def test_login_required_to_vote(self):
         """An unauthenicated request cannot submit a vote."""
-        # unauthenticated user is directed to login
+        # and he is  is redirected to login
         question1 = create_question("Question 1", days=-10)
         choices = create_choices(question1, 3)
         selected_choice = choices[0]
         url = reverse('polls:vote', args=(question1.id,))
-        post_data = { 'choice': selected_choice.id}
+        # submit a POST request containing the choice to vote for
+        post_data = { 'choice': selected_choice.id }
         response = self.client.post(url, post_data)
 
         # should redirect to 'login' with appended "?next=/some/url"
@@ -80,13 +104,13 @@ class VotingTest(TestCase):
         question1 = create_question("Question 1", days=-10)
         choices = create_choices(question1, 3)
         selected_choice = choices[0]
+        # this choice should not have any votes yet
+        self.assertEqual(selected_choice.votes, 0)
+        # must login to vote
+        self.login(self.user1)
+        # POST a vote to the "vote" url for this question
         url = reverse('polls:vote', args=(question1.id,))
         post_data = { 'choice': selected_choice.id}
-        # "login" the user to the session
-        self.assertTrue(
-            self.client.login(username=self.username, password=self.password))
-        # should not be any votes yet
-        self.assertEqual(selected_choice.votes, 0)
         # submit a vote!
         response = self.client.post(url, post_data)
         # should redirect to the results page
@@ -100,16 +124,15 @@ class VotingTest(TestCase):
         question1 = create_question("Future Question", days=10) # 10 days in future
         choices = create_choices(question1, 3)
         selected_choice = choices[1]
+        # should not have any votes yet
+        self.assertEqual(0, selected_choice.votes)
+        # must login to vote. Login as user1
+        self.login(self.user1)
+        # POST a vote to the "vote" url for this question
         url = reverse('polls:vote', args=(question1.id,))
         post_data = { 'choice': selected_choice.id}
-        # "login" the user to the session
-        self.assertTrue(
-            self.client.login(username=self.username, password=self.password))
-        # should not be any votes yet
-        self.assertEqual(0, selected_choice.votes)
-        # submit a vote!
         response = self.client.post(url, post_data)
-        # should redirect polls index with an error message
+        # should redirect to polls index with an error message
         self.assertRedirects(response, reverse('polls:index'))
         # and no vote was recorded
         self.assertEqual(0, selected_choice.votes)
@@ -120,15 +143,15 @@ class VotingTest(TestCase):
         choices1 = create_choices(question1, 3)
         question2 = create_question("Question2", days=-2)
         choices2 = create_choices(question2, 4)
-        # select a choice that doesn't belong to question1
+        # select a choice that doesn't belong to question1 (belongs to question2)
         selected_choice = choices2[0]
+        # should not have any votes yet
+        self.assertEqual(0, selected_choice.votes)
+        # must login in order to vote
+        self.login(self.user1)
+        # POST a vote to the 'vote' url for question1
         url = reverse('polls:vote', args=(question1.id,))
         post_data = { 'choice': selected_choice.id}
-        # "login" the user to the session
-        self.assertTrue(
-            self.client.login(username=self.username, password=self.password))
-        # should not be any votes yet
-        self.assertEqual(0, selected_choice.votes)
         # submit a vote!
         response = self.client.post(url, post_data)
         # should redisplay polls detail page with an error message
@@ -136,4 +159,14 @@ class VotingTest(TestCase):
         self.assertRedirects(response, redirect_url)
         # and no vote was recorded
         self.assertEqual(0, selected_choice.votes)
+
+        # TODO write 4 tests for the delete_vote view.
+        # In your tests, remember to "login" a user to the test client,
+        # as done in the above tests.
+
+        # Example test:
+
+        def test_delete_vote_invalid_vote_id(self):
+            """Calling delete_vote with vote id that does not exist should raise 404 error."""
+            pass
 
