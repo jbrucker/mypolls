@@ -55,7 +55,7 @@ def vote(request, question_id):
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
         messages.error(request, "You didn't select a valid choice.")
-        return render(request, 'polls/detail.html', {'question': question})
+        return redirect('polls:detail', question_id=question.id)
     # is voting allowed?
     if not question.can_vote():
         messages.error(request, 
